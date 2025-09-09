@@ -1,7 +1,12 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
+import Container from "./Container";
 
 function Navbar() {
+  const pathname = usePathname();
+
   const navLinks = [
     {
       href: "/",
@@ -15,11 +20,17 @@ function Navbar() {
   ];
   return (
     <nav className="shadow p-4">
-      {navLinks.map((item) => (
-        <Link key={item.href} className="mr-4" href={item.href}>
-          {item.title}
-        </Link>
-      ))}
+      <Container>
+        {navLinks.map((item) => (
+          <Link
+            key={item.href}
+            className={`mr-4 ${pathname === item.href ? "text-sky-500" : ""}`}
+            href={item.href}
+          >
+            {item.title}
+          </Link>
+        ))}
+      </Container>
     </nav>
   );
 }
